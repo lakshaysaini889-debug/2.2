@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product List Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .product-box {
+      border: 1px solid #000;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    select {
+      margin: 10px 0;
+      padding: 5px;
+    }
+    .product-item {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="product-box">
+    <h2>Product List</h2>
+    <label for="category">Filter by Category:</label>
+    <select id="category">
+      <option value="All">All</option>
+      <option value="Clothing">Clothing</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Books">Books</option>
+    </select>
+
+    <div id="productList"></div>
+  </div>
+
+  <script>
+    const products = [
+      { name: "T-Shirt", category: "Clothing" },
+      { name: "Jeans", category: "Clothing" },
+      { name: "Headphones", category: "Electronics" },
+      { name: "Smartphone", category: "Electronics" },
+      { name: "Novel", category: "Books" },
+      { name: "Cookbook", category: "Books" }
+    ];
+
+    const categorySelect = document.getElementById("category");
+    const productList = document.getElementById("productList");
+
+    function displayProducts(category) {
+      productList.innerHTML = "";
+      const filtered = category === "All" 
+        ? products 
+        : products.filter(p => p.category === category);
+
+      filtered.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product-item";
+        div.textContent = p.name;
+        productList.appendChild(div);
+      });
+    }
+
+    // Initial load
+    displayProducts("All");
+
+    // Change filter
+    categorySelect.addEventListener("change", () => {
+      displayProducts(categorySelect.value);
+    });
+  </script>
+</body>
+</html>
